@@ -45,3 +45,25 @@ The get request for the user is to check if the user is authenticated or not. Al
 <img src="screenshots/login.jpg">
 
 ## Only after logging in and including the token as Bearer token in Authorization headers , the user will be able to GET,POST,PUT or DELETE .
+
+## Get all employee details
+
+<img src="screenshots/empdetails.jpg">
+
+## Add an employee detail
+
+<img src="screenshots/addemp.jpg">
+
+## Get an employee detail by id
+
+<img src="screenshots/getempbyid.jpg">
+
+
+## Update an employee detail by id
+
+<img src="screenshots/updateemp.jpg">
+
+
+## Delete an employee detail by id
+
+<img src="screenshots/deleteemp.jpg">
