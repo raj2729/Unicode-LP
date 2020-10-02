@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width,initial-scale=1.0')
+    meta(name='author', content='Raj')
+    title Form Submission
+    style
+        include ../static/stylestudentForm.css                    
+  body
+    h2 Details have been added
+    .container
+        | Go Back to Form   :   
+        button#addValue.textbox 
+          a(href = "/task4studentForm" target="_blank") Form
+    .container
+        | View List   :   
+        button#addValue.textbox 
+          a(href = "/view" target="_blank") View List

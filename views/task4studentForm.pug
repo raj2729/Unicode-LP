@@ -1,0 +1,35 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width,initial-scale=1.0')
+    meta(name='author', content='Raj')
+    title Form Submission
+    style
+        include ../static/stylestudentForm.css                    
+  body
+    header
+      h1.headings( align='center')  Student's Form
+    main
+      h3.headings Enter Student details below :
+      form(method="post")
+        .container
+          label(for='myName')  Name   :   
+          input#myName.textbox(type='text', placeholder='Name', name='myName')
+        .container
+          label(for='myMathsMarks') Enter maths marks   :   
+          input#myMathsMarks.textbox(type='number', placeholder='Enter Marks', name='myMathsMarks')
+        .container
+          label(for='myEnglishMarks') Enter English marks   :   
+          input#myEnglishMarks.textbox(type='number', placeholder='Enter Marks', 169*25='', name='myEnglishMarks')
+        .container
+          | Reset Values   :   
+          input.textbox(type='reset', value='Reset')
+        .container
+          | Submit   :   
+          button#addValue.textbox 
+            | Submit Form
+        .container
+          | View List   :   
+          button#addValue.textbox 
+            a(href = "/view" target="_blank") View List
