@@ -43,3 +43,5 @@ The get request for the user is to check if the user is authenticated or not. Al
 ## Login
 
 <img src="screenshots/login.jpg">
+
+## Only after logging in and including the token as Bearer token in Authorization headers , the user will be able to GET,POST,PUT or DELETE .
