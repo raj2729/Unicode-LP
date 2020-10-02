@@ -40,3 +40,6 @@ The get request for the user is to check if the user is authenticated or not. Al
 
 <img src="screenshots/signup.jpg">
 
+## Login
+
+<img src="screenshots/login.jpg">
