@@ -1,4 +1,4 @@
-const express=require("express")
+const express=require("express") 
 const mongoose = require("mongoose")
 const router=express.Router()
 const passport = require('passport');
@@ -12,7 +12,7 @@ router.use(bodyparser.json())
 let details_employee = require("../models/employee")
 
 router.use(function (req,res,next){
-    console.log("Employee Request successfully handled");
+    console.log("Employee Request handled");
     next()
 })
 
@@ -26,15 +26,16 @@ router
         async function createEmployee(){
 
             await employeeData.save()
-            await (res.status(200).json({message : "Employee Details have been added"}));
-
+            await (res.status(200).send("Employee Details have been added"));
+ 
         }
         createEmployee()
         .catch(err => {
             res.status(400)
-            res.json({
-                message : "Details of Employee has not been added"
-            })
+            // res.json({
+            //     message : "Details of Employee has not been added"
+            // })
+            res.send("Details of Employee has not been added")
         })    
     })
     
@@ -44,41 +45,33 @@ router
 
             await details_employee.find()
             .then (response =>{
-                res.json({
-                    response
-                })
+                res.send(response);
             })
 
         }
         getEmployees()
         .catch(err => {
-            res.json({
-                message : "Error while loading Employee Data"
-            })
+            res.send("Error while loading Employee Data")
             
         })
     })
-
-
-
+ 
 router 
     .route("/:id")
     .get(authenticate.verifyUser , (req,res) => {
 
         async function getEmployeeById(){
-            await details_employee.find({"employeeId" : req.params.id})
+            // await details_employee.find({"employeeId" : req.params.id})
+            await details_employee.findById(req.params.id)
+
             .then(response =>{
-                res.json({
-                    response
-                })
+                res.send(response);
             })
         }
 
         getEmployeeById()
         .catch(err => {
-            res.json({
-                message : "Error while loading Employee Data"
-            })
+            res.send("Error while loading Employee Data")
         })
     })
     .put(authenticate.verifyUser , (req,res) => {
@@ -93,17 +86,13 @@ router
                 "employeeProjectId" : req.body.employeeProjectId
             }}) 
             .then( response => {
-                res.json({
-                    message : "Employee data has been Updated"
-                })
+                res.send("Employee Data has been updated successfully")
             })
 
         }
         updateEmployee()
         .catch(err => {
-            res.json({
-                message : "Error while Updating Employee Data"
-            })
+            res.send("Error while Updating Employee Data")
         })
     })
     .delete(authenticate.verifyUser , (req,res) => {
@@ -112,19 +101,13 @@ router
 
             await details_employee.deleteOne({"employeeId" : req.params.id})
             .then( 
-                res.json({
-                    message : "Employee data has been deleted"
-                })
+                res.send("Employee Data has been deleted successfully")
             )
         }
         deleteEmployee()
         .catch(err => {
-            res.json({
-                message : "Error while Deleting Employee Data"
-            })
+            res.send("Error while deleteing Employee Data")
         })
     })
-
-
 
 module.exports = router;

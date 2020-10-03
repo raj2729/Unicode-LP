@@ -12,7 +12,7 @@ router.use(bodyparser.json())
 let details_customer = require("../models/customer")
 
 router.use(function (req,res,next){
-    console.log("Customer Request done");
+    console.log("Customer Request handled");
     next()
 })
 
@@ -25,15 +25,13 @@ router
         async function createCustomer(){
 
             await customerData.save()
-            await (res.status(200).json({message : "Customer Details have     been added"}));
+            await (res.status(200).send("Customer Details have been added"));
 
         }
         createCustomer()
         .catch(err => {
             res.status(400)
-            res.json({
-                message : "Details of customer has not been added"
-            })
+            res.send("Details of Customer have been added")
         })    
     })
     .get((req,res) => {
@@ -42,17 +40,13 @@ router
 
             await details_customer.find()
             .then (response =>{
-                res.json({
-                    response
-                })
+                res.send(response);
             })
 
         }
         getCustomer()
         .catch(err => {
-            res.json({
-                message : "Error while loading Customer Data"
-            })
+           res.send("Error while loading Customer Data")
         })
     })
 
@@ -61,19 +55,17 @@ router
     .get(authenticate.verifyUser , (req,res) => {
 
         async function getCustomerById(){
-            await details_customer.find({"customerId" : req.params.id})
+            // await details_customer.find({"customerId" : req.params.id})
+            await details_customer.findById(req.params.id)
+            
             .then(response =>{
-                res.json({
-                    response
-                })
+                res.send(response);
             })
         }
 
         getCustomerById()
         .catch(err => {
-            res.json({
-                message : "Error while loading Customer Data"
-            })
+            res.send("Error while loading Customer Data");
         })
     })
     .put(authenticate.verifyUser , (req,res) => {
@@ -86,17 +78,13 @@ router
                 "customerId" : req.body.customerId,
             }}) 
             .then( response => {
-                res.json({
-                    message : "Customer data has been Updated"
-                })
+                res.send("Customer data has been Updated Successfully")
             })
 
         }
         updateCustomer()
         .catch(err => {
-            res.json({
-                message : "Error while Updating Customer Data"
-            })
+            res.send("Error while Updating Customer Data");
         })
     })
     .delete(authenticate.verifyUser , (req,res) => {
@@ -105,16 +93,12 @@ router
 
             await details_customer.deleteOne({"customerId" : req.params.id})
             .then( 
-                res.json({
-                    message : "Customer data has been deleted"
-                })
+                res.send("Customer data has been Deleted Successfully")
             )
         }
         deleteCustomer()
         .catch(err => {
-            res.json({
-                message : "Error while Deleting Customer Data"
-            })
+            res.send("Error while Deleting Customer Data");
         })
     })
 
