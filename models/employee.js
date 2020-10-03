@@ -5,14 +5,29 @@ const path =require("path")
 const passportLocalMongoose = require('passport-local-mongoose');
 
 let Schema = mongoose.Schema
-               
+                
 //Defining EMPLOYEE mongoose schema
 let employeeSchema = new Schema({
-    employeeName : String,
-    employeeId : Number,
-    employeeContact : Number,
-    employeeSalary : Number,
-    employeeProjectId : Number,
+    employeeName :{
+        type :String,
+        require :true,
+    },
+    employeeId : {
+        type : Number,
+        require : true,
+        unique : true,
+    },
+    employeeContact : {
+        type : Number,
+        require : true,
+    },
+    employeeSalary : {
+        type : Number,
+        require : true,
+    },
+    employeeProjectId : {
+        type : Number,
+    }
 
 } , {
     timestamps: true

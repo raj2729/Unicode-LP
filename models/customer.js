@@ -5,12 +5,21 @@ const path =require("path")
 const passportLocalMongoose = require('passport-local-mongoose');
 
 let Schema = mongoose.Schema
-               
+                
 //Defining CUSTOMER mongoose schema
 let customerSchema = new Schema({
-    customerName : String,
-    customerProjects : String,
-    customerId : Number    
+    customerName :{
+        type :String,
+        require :true,
+    },
+    customerProjects :{
+        type :String,
+    },
+    customerId : {
+        type : Number,
+        require : true,
+        unique : true,
+    }   
 } , {
     timestamps: true
 })

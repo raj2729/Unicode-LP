@@ -24,7 +24,7 @@ let User = new Schema({
         default : false,
     }
 
-} , {
+} , { 
     timestamps: true
 } )
 
