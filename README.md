@@ -36,34 +36,83 @@ All root endpoints have their separate router in `./router` folder
 The get request for the user is to check if the user is authenticated or not. All the routesthen i.e to the employees, projects and customers require authentication for  POST to add ,PUT , DELETE and GET a specific employee,project,customer                   
 
 # Testing
-## Sign Up
+## User Sign Up
 
-<img src="screenshots/signup.jpg">
+<img src="screenshots/User/usersignup.jpg">
 
-## Login
+## User Login
 
-<img src="screenshots/login.jpg">
+<img src="screenshots/User/userlogin.jpg">
+
+## User Logout
+(Redirects to home page which is a Student Form)
+
+<img src="screenshots/User/userlogout.jpg">
 
 ## Only after logging in and including the token as Bearer token in Authorization headers , the user will be able to GET,POST,PUT or DELETE .
 
-## Get all employee details
+# Employee
 
-<img src="screenshots/empdetails.jpg">
+## Get all Employee details
 
-## Add an employee detail
+<img src="screenshots/employee/empdetails.jpg">
 
-<img src="screenshots/addemp.jpg">
+## Add an Employee detail
 
-## Get an employee detail by id
+<img src="screenshots/employee/addemp.jpg">
 
-<img src="screenshots/getempbyid.jpg">
+## Get an Employee detail by id
 
+<img src="screenshots/employee/getempbyid.jpg">
 
-## Update an employee detail by id
+## Update an Employee detail by id
 
-<img src="screenshots/updateemp.jpg">
+<img src="screenshots/employee/updateemp.jpg">
 
+## Delete an Employee detail by id
 
-## Delete an employee detail by id
+<img src="screenshots/employee/deleteemp.jpg">
 
-<img src="screenshots/deleteemp.jpg">
+# Project
+
+## Get all Project details
+
+<img src="screenshots/employee/empdetails.jpg">
+
+## Add an Project detail
+
+<img src="screenshots/employee/addemp.jpg">
+
+## Get an Project detail by id
+
+<img src="screenshots/employee/getempbyid.jpg">
+
+## Update an Project detail by id
+
+<img src="screenshots/employee/updateemp.jpg">
+
+## Delete an Project detail by id
+
+<img src="screenshots/employee/deleteemp.jpg">
+
+# Customer
+
+## Get all Customer details
+
+<img src="screenshots/employee/empdetails.jpg">
+
+## Add an Customer detail
+
+<img src="screenshots/employee/addemp.jpg">
+
+## Get an Customer detail by id
+
+<img src="screenshots/employee/getempbyid.jpg">
+
+## Update an Customer detail by id
+
+<img src="screenshots/employee/updateemp.jpg">
+
+## Delete an Customer detail by id
+
+<img src="screenshots/employee/deleteemp.jpg">
