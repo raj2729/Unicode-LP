@@ -10,28 +10,21 @@ let User = require("../models/user")
 const router=express.Router()
 router.use(bodyparser.json())
 
-router.get("/" , (req,res) => {
+router.get("/" ,async (req,res,next) => {
   
-        async function getEmployees(){
+        try{
 
-            await User.find()
-            .then (response =>{
-                res.json({
-                    response
-                })
-            })
-
-        }
-        getEmployees()
-        .catch(err => {
-            res.json({
-                message : "Error while loading User Data"
-            })
+            let response = await User.find()
+            res.send(response)
             
-        })
+        }
+        catch(err) {
+            res.send("Error while loading User Data")
+            
+        }
     })
 
-router.post("/signup", (req,res,next)=>{
+router.post("/signup",async (req,res,next)=>{
 
     User.register( new User( {username : req.body.username}),
     req.body.password , (err , user ) => {   
@@ -48,12 +41,7 @@ router.post("/signup", (req,res,next)=>{
            passport.authenticate("local")(req,res , () => {
                 res.statusCode = 200;
                 res.setHeader("Content-Type", "application/json" )
-                res.json({
-
-                    success : true,
-                    status : "User registration Successful",
-                    
-                })
+                res.send("User registration Successful")
            })
         }
 
@@ -88,13 +76,11 @@ router.delete("/:username" , authenticate.verifyUser,async (req, res, next) => {
 		await User.deleteOne({username : req.params.username});
 		res.statusCode = 200;
 		res.setHeader('Content-Type','application/json');
-		res.json({
-            message : "User data has been deleted"
-        })
-	} catch (err) {
+		res.send("User data has been deleted")
+	} 
+    catch (err) {
 		next(err);
 	}
 });
-
 
 module.exports = router

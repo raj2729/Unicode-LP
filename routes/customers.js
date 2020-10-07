@@ -5,7 +5,7 @@ const passport = require('passport');
 const bodyparser = require("body-parser")
 const passportLocalMongoose = require('passport-local-mongoose');
 const authenticate = require("../authenticate")
-
+ 
 router.use(bodyparser.json())
 
 //Setting up a collection of CUSTOMER
@@ -19,87 +19,70 @@ router.use(function (req,res,next){
 //Managing the routes
 router
     .route("/")
-    .post(authenticate.verifyUser , (req,res) => {
+    .post(authenticate.verifyUser , async (req,res,next) => {
         let customerData = new details_customer(req.body)
 
-        async function createCustomer(){
+        try{
 
             await customerData.save()
-            await (res.status(200).send("Customer Details have been added"));
+            res.status(200).send("Customer Details have been added");
 
         }
-        createCustomer()
-        .catch(err => {
+        catch(err){
             res.status(400)
             res.send("Details of Customer have been added")
-        })    
+        }    
     })
-    .get((req,res) => {
+    .get( async (req,res,next) => {
   
-        async function getCustomer(){
+        try{
 
-            await details_customer.find()
-            .then (response =>{
-                res.send(response);
-            })
+            let response = await details_customer.find()
+            res.send(response);
 
         }
-        getCustomer()
-        .catch(err => {
+        catch(err){
            res.send("Error while loading Customer Data")
-        })
+        }
     })
 
 router 
     .route("/:id")
-    .get(authenticate.verifyUser , (req,res) => {
+    .get(authenticate.verifyUser , async (req,res,next) => {
 
-        async function getCustomerById(){
+        try{
             // await details_customer.find({"customerId" : req.params.id})
-            await details_customer.findById(req.params.id)
+            let response = await details_customer.findById(req.params.id)
             
-            .then(response =>{
-                res.send(response);
-            })
+            res.send(response);
         }
-
-        getCustomerById()
-        .catch(err => {
+        catch(err) {
             res.send("Error while loading Customer Data");
-        })
+        }
     })
-    .put(authenticate.verifyUser , (req,res) => {
+    .put(authenticate.verifyUser , async (req,res,next) => {
 
-        async function updateCustomer(){
+        try{
   
-            await details_customer.updateOne({"customerId" : req.body.customerId },{$set :{    
-                "customerName" : req.body.customerName,
-                "customerProjects" : req.body.customerProjects,
-                "customerId" : req.body.customerId,
-            }}) 
-            .then( response => {
-                res.send("Customer data has been Updated Successfully")
-            })
-
+            await details_customer.findOneAndUpdate(req.params.customerId ,{$set :req.body} , {new : true}) 
+            res.status(200).send("Customer data has been Updated Successfully")
+            
         }
-        updateCustomer()
-        .catch(err => {
+        catch(err) {
             res.send("Error while Updating Customer Data");
-        })
-    })
-    .delete(authenticate.verifyUser , (req,res) => {
- 
-        async function deleteCustomer(){
-
-            await details_customer.deleteOne({"customerId" : req.params.id})
-            .then( 
-                res.send("Customer data has been Deleted Successfully")
-            )
         }
-        deleteCustomer()
-        .catch(err => {
+    })
+    .delete(authenticate.verifyUser , async (req,res,next) => {
+ 
+        try{
+
+            await details_customer.findOneAndDelete({"customerId" : req.params.id})
+            res.send("Customer data has been Deleted Successfully")
+            
+        }
+        catch(err){
             res.send("Error while Deleting Customer Data");
-        })
+        }
     })
 
 module.exports = router;

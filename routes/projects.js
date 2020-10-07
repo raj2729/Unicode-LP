@@ -5,7 +5,7 @@ const passport = require('passport');
 const bodyparser = require("body-parser")
 const passportLocalMongoose = require('passport-local-mongoose');
 const authenticate = require("../authenticate")
-
+ 
 router.use(bodyparser.json()) 
 
 // Setting up a collection of PROJECT
@@ -19,90 +19,70 @@ router.use(function (req,res,next){
 //Managing the routes
 router
     .route("/")
-    .post(authenticate.verifyUser , (req,res) => {
+    .post(authenticate.verifyUser , async (req,res,next) => {
         let projectData = new details_project(req.body)
 
-        async function createProject(){
+        try{
 
             await projectData.save()
-            await (res.status(200).send("Project Details have been added"));
+            res.status(200).send("Project Details have been added");
 
         }
-        createProject()
-        .catch(err => {
-            res.status(400);
+        catch(err){
             res.send("Details of Project has not been added");
-        })    
+        }    
     })
-    .get((req,res) => {
+    .get(async (req,res,next) => {
   
-        async function getProject(){
+        try{
 
-            await details_project.find()
-            .then (response =>{
-                res.send(response);
-            })
+            let response = await details_project.find()
+            res.send(response);
 
         }
-        getProject()
-        .catch(err => {
+        catch(err) {
             res.send("Error while loading Project data")
-        })
+        }
     })
 
 router 
     .route("/:id")
-    .get(authenticate.verifyUser , (req,res) => {
+    .get(authenticate.verifyUser ,async (req,res,next) => {
 
-        async function getProjectById(){
+        try{
             // await details_project.find({"projectId" : req.params.id})
-            await details_project.findById(req.params.id)
+            let response = await details_project.findById(req.params.id)
 
-            .then(response =>{
-                res.send(response);
-            })
+            res.send(response);
         }
-
-        getProjectById()
-        .catch(err => {
+        catch(err) {
             res.send("Error while loading Project Data")
-        })
+        }
     })
-    .put(authenticate.verifyUser , (req,res) => {
+    .put(authenticate.verifyUser , async (req,res,next) => {
 
-        async function updateProject(){
+        try{
   
-            await details_project.updateOne({"projectId" : req.body.projectId },{$set :{    
-                "projectName" : req.body.projectName,
-                "projectCustomer" : req.body.projectCustomer,
-                "projectId" : req.body.projectId,
-                "projectEmployeeId" : req.body.projectEmployeeId,
-                "projectStartDate" : req.body.projectStartDate ,
-                
-            }}) 
-            .then( response => {
-                res.send("Project data has been Updated Successfully")
-            })
+            await details_project.findOneAndUpdate( req.params.projectId ,{$set : req.body },{ new : true}) 
+            res.statusCode = 200;
+            res.send("Project data has been Updated Successfully");
 
         } 
-        updateProject()
-        .catch(err => {
+        catch(err){
             res.send("Error while Updating Project Data")
-        })
-    })
-    .delete(authenticate.verifyUser , (req,res) => {
- 
-        async function deleteProject(){
-
-            await details_project.deleteOne({"projectId" : req.params.id})
-            .then( 
-                res.send("Project data has been Deleted Successfully")
-            )
         }
-        deleteProject()
-        .catch(err => {
+    })
+    .delete(authenticate.verifyUser ,async (req,res,next)=> {
+ 
+        try{
+
+            await details_project.findOneAndDelete({"projectId" : req.params.id})
+            res.send("Project data has been Deleted Successfully")
+            
+        }
+        catch(err) {
              res.send("Error while Deleting Project Data")
-        })
+        }
     })
 
 module.exports = router;

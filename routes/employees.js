@@ -20,94 +20,85 @@ router.use(function (req,res,next){
 router
     .route("/")
  
-    .post(authenticate.verifyUser , (req,res) => {
+    .post(authenticate.verifyUser , async (req,res,next) => {
         let employeeData = new details_employee(req.body)
 
-        async function createEmployee(){
+        try{
 
             await employeeData.save()
-            await (res.status(200).send("Employee Details have been added"));
- 
+            res.status(200).send("Employee Details have been added");
+
         }
-        createEmployee()
-        .catch(err => {
+        catch(err) {
             res.status(400)
             // res.json({
             //     message : "Details of Employee has not been added"
             // })
             res.send("Details of Employee has not been added")
-        })    
+        }  
     })
     
-    .get((req,res) => {
+    .get(async (req,res,next) => {
   
-        async function getEmployees(){
+        try{
 
-            await details_employee.find()
-            .then (response =>{
-                res.send(response);
-            })
+            let response =  await details_employee.find()
+            res.send(response);
 
         }
-        getEmployees()
-        .catch(err => {
+        catch(err) {
+
             res.send("Error while loading Employee Data")
             
-        })
+        }
     })
  
 router 
     .route("/:id")
-    .get(authenticate.verifyUser , (req,res) => {
+    .get(authenticate.verifyUser , async (req,res,next) => {
 
-        async function getEmployeeById(){
+       try{
             // await details_employee.find({"employeeId" : req.params.id})
-            await details_employee.findById(req.params.id)
-
-            .then(response =>{
-                res.send(response);
-            })
+            let response = await details_employee.findById(req.params.id)
+            res.send(response);
+            
         }
-
-        getEmployeeById()
-        .catch(err => {
+        catch(err){
             res.send("Error while loading Employee Data")
-        })
-    })
-    .put(authenticate.verifyUser , (req,res) => {
-
-        async function updateEmployee(){
-  
-            await details_employee.updateOne({"employeeId" : req.body.employeeId },{$set :{    
-                "employeeName" : req.body.employeeName,
-                "employeeId" : req.body.employeeId,
-                "employeeContact" : req.body.employeeContact ,
-                "employeeSalary" : req.body.employeeSalary,
-                "employeeProjectId" : req.body.employeeProjectId
-            }}) 
-            .then( response => {
-                res.send("Employee Data has been updated successfully")
-            })
-
         }
-        updateEmployee()
-        .catch(err => {
-            res.send("Error while Updating Employee Data")
-        })
     })
-    .delete(authenticate.verifyUser , (req,res) => {
+    
+    .put(authenticate.verifyUser , async (req,res,next) => {
  
-        async function deleteEmployee(){
+        try{
+  
+            await details_employee.findOneAndUpdate(req.params.employeeId,{ $set : req.body },{new : true });
+                //new gives modified employee data
+            res.statusCode = 200 ;
+            // res.setHeader("Content-Type","application/json");
+            // res.json(emp);
+            res.send("Employee Data has been updated successfully")           
 
-            await details_employee.deleteOne({"employeeId" : req.params.id})
-            .then( 
-                res.send("Employee Data has been deleted successfully")
-            )
         }
-        deleteEmployee()
-        .catch(err => {
+        catch(err ) {
+            res.send("Error while Updating Employee Data")
+            
+        }
+    })
+
+
+    .delete(authenticate.verifyUser , async (req , res ,next ) => {
+ 
+        try{
+
+            await details_employee.findOneAndDelete({"employeeId" : req.params.id})
+             
+            res.send("Employee Data has been deleted successfully")
+            
+        }
+        catch(err) {
             res.send("Error while deleteing Employee Data")
-        })
+        }
     })
 
 module.exports = router;
