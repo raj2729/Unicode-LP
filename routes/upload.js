@@ -16,4 +16,14 @@ const storage = multer.diskStorage({
   },
 });
 
+// Limit to 200 MB file size
+const upload = multer({
+  storage: storage,
+  // file size limit to 200mb temporarily
+  limits: {
+    fileSize: 1024 * 1024 * 200, // 200 MB
+  },
+}).single('file');
+
+
 module.exports = uploadRouter;
