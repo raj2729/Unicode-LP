@@ -17,6 +17,7 @@ const employee = require("./routes/employees")
 const project = require("./routes/projects")
 const customer = require("./routes/customers")
 const users = require("./routes/users")
+const uploads = require("./routes/upload");
 
 app = express()
   
@@ -38,6 +39,7 @@ mongoose.connect("mongodb://localhost/ProjectManagement", {useNewUrlParser : tru
 app.use("/employees" , employee)//when employee is there refer to employee file use employee.js to handle endpoints
 app.use("/projects" , project)
 app.use("/customers" , customer)
+app.use("/uploads" , uploads);
 
 //START THE SERVER
 app.listen(port , ()=> {

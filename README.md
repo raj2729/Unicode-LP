@@ -1,4 +1,5 @@
 # Project Management System
+
 Tasks for Unicode learning period
 
 ## Project Structure
@@ -11,31 +12,38 @@ Tasks for Unicode learning period
 ├── app.js                  -> Main File
 └── package.json            -> Npm package.json file
 ```
+
 ## Usage
+
 ```
 node app.js
 ```
+
 ## Endpoints
+
 All root endpoints have their separate router in `./router` folder
 
-|Endpoints              |Description                                                                    |Methods               |
-|-----------------------|-------------------------------------------------------------------------------|----------------------|
-|/                      |Home Page(Just have added a random view of form)                                                                    |GET                   |
-|/users                 | Displays List Of Users                                                        |GET                   |
-|/users/signup          |Sign Up page for a user                                                        |POST                 |
-|/users/login           |Login of a user                                                                |POST                  |
-|/users/logout          |User logout                                                                    |POST                  |
-|/users/delete/:username|Delete a user from database                                                    |DELETE               |
-|/employees             |List of all emplloyees and add new employee                                    |GET , POST           |
-|/employees/:id         |Details of specified employee                                                  |GET, PUT, DELETE     |
-|/projects              |List of all projects                                                           |GET, POST             |
-|/projects/:id          |Details of specified project                                                   |GET, PUT, DELETE      |
-|/customers             |List of all customers                                                          |GET, POST, DELETE     |
-|/customers/:id         |Details of specified customer                                                  |GET, PUT, DELETE      |
+| Endpoints                  | Description                                      | Methods           |
+| -------------------------- | ------------------------------------------------ | ----------------- |
+| /                          | Home Page(Just have added a random view of form) | GET               |
+| /users                     | Displays List Of Users                           | GET               |
+| /users/signup              | Sign Up page for a user                          | POST              |
+| /users/login               | Login of a user                                  | POST              |
+| /users/logout              | User logout                                      | POST              |
+| /users/delete/:username    | Delete a user from database                      | DELETE            |
+| /employees                 | List of all emplloyees and add new employee      | GET , POST        |
+| /employees/:id             | Details of specified employee                    | GET, PUT, DELETE  |
+| /projects                  | List of all projects                             | GET, POST         |
+| /projects/:id              | Details of specified project                     | GET, PUT, DELETE  |
+| /customers                 | List of all customers                            | GET, POST, DELETE |
+| /customers/:id             | Details of specified customer                    | GET, PUT, DELETE  |
+| /uploads/getFile/:filename | Returns file                                     | GET               |
+| /uploads/uploadFile        | Upload file                                      | POST              |
 
-The get request for the user is to check if the user is authenticated or not. All the routesthen i.e to the employees, projects and customers require authentication for  POST to add ,PUT , DELETE and GET a specific employee,project,customer                   
+The get request for the user is to check if the user is authenticated or not. All the routesthen i.e to the employees, projects and customers require authentication for POST to add ,PUT , DELETE and GET a specific employee,project,customer
 
 # Testing
+
 ## User Sign Up
 
 <img src="screenshots/User/usersignup.jpg">
@@ -45,6 +53,7 @@ The get request for the user is to check if the user is authenticated or not. Al
 <img src="screenshots/User/userlogin.jpg">
 
 ## User Logout
+
 (Redirects to home page which is a Student Form)
 
 <img src="screenshots/User/userlogout.jpg">
@@ -116,3 +125,11 @@ The get request for the user is to check if the user is authenticated or not. Al
 ## Delete an Customer detail by id
 
 <img src="screenshots/employee/deleteemp.jpg">
+
+## Upload file
+
+<img src="screenshots/Uploads/postman.png">
+
+## Download file
+
+<img src="screenshots/Uploads/browser.png">
