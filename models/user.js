@@ -4,24 +4,21 @@ const express=require("express")
 const path =require("path")
 const passportLocalMongoose = require('passport-local-mongoose');
 
-
 let Schema=mongoose.Schema ;
 let User = new Schema({
 
-    // username :{
-    //     type : String,
-    //     require : true,
-    //     unique : true ,
-    // },
-    // password :{
-    //     type : String,
-    //     require : true,
-    // },
-    
-    //No need in passport
+    name : {
+        type : String,
+        default : '',
+    },
+    username :{
+        type : String,
+    },
+    password :{
+        type : String,
+    },
     admin :{
-        type : Boolean,
-        default : false,
+        type : Boolean
     }
 
 } , { 

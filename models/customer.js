@@ -18,7 +18,6 @@ let customerSchema = new Schema({
     customerId : {
         type : Number,
         require : true,
-        unique : true,
     }   
 } , {
     timestamps: true

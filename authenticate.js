@@ -11,14 +11,13 @@ const config = require("./config")
 // passport.use(new LocalStrategy(User.authenticate()))
 exports.local = passport.use(new LocalStrategy(User.authenticate()));
 
-
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
 exports.getToken = (user)=>{
 
     return jwt.sign(user , config.secretKey , 
-    { expiresIn : 3600 } );//expires in 3600 seconds( 1 hour )
+    { expiresIn : 360000 } );//expires in 3600 seconds( 1 hour )
 
 }
 
@@ -46,3 +45,19 @@ exports.jwtPassport = passport.use(new JwtStrategy( opts,( jwt_payload ,done) =>
 exports.verifyUser = passport.authenticate("jwt" , {
     session : false,
 } )//use token in authentication header and verifies user 
+
+//Verify if admin flag is set for super secure routes
+exports.verifyAdmin = passport.authenticate("jwt" ,(req, res, next) => {
+    if(req.user.admin){
+        return next();
+    }
+    else if(!req.user.admin){
+        err = new Error('You are not authorized to perform this operation!');
+        err.status = 403;
+        return next(err);
+    }
+    else{
+        return next(err);
+    }
+}
+) 

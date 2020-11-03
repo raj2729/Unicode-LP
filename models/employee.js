@@ -15,7 +15,6 @@ let employeeSchema = new Schema({
     employeeId : {
         type : Number,
         require : true,
-        unique : true,
     },
     employeeContact : {
         type : Number,

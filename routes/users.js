@@ -10,7 +10,8 @@ let User = require("../models/user")
 const router=express.Router()
 router.use(bodyparser.json())
 
-router.get("/" ,async (req,res,next) => {
+router.route('/')
+    .get( async (req,res,next) => {
   
         try{
 
@@ -26,7 +27,7 @@ router.get("/" ,async (req,res,next) => {
 
 router.post("/signup",async (req,res,next)=>{
 
-    User.register( new User( {username : req.body.username}),
+    User.register( new User( { name : req.body.name , username : req.body.username , password : req.body.password , admin : req.body.admin }),
     req.body.password , (err , user ) => {   
 
         if(err){
@@ -71,7 +72,7 @@ router.get("/logout" , (req,res,next) => {
     res.redirect("/");
 } )
 
-router.delete("/:username" , authenticate.verifyUser,async (req, res, next) => {
+router.delete("/:username" , async (req, res, next) => {
 	try {
 		await User.deleteOne({username : req.params.username});
 		res.statusCode = 200;

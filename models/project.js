@@ -19,7 +19,6 @@ let projectSchema = new Schema({
     projectId : {
         type : Number,
         require : true,
-        unique : true,
     },
     projectEmployeeId : {
         type : Number,

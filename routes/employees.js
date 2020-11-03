@@ -11,17 +11,18 @@ router.use(bodyparser.json())
 //Setting up a collection/model of EMPLOYEE
 let details_employee = require("../models/employee")
 
-router.use(function (req,res,next){
-    console.log("Employee Request handled");
-    next()
-})
+// router.use(function (req,res,next){
+//     console.log("Employee Request handled");
+//     next()
+// })
 
 //Managing the routes
 router
     .route("/")
  
-    .post(authenticate.verifyUser , async (req,res,next) => {
+    .post(authenticate.verifyUser ,authenticate.verifyAdmin, async (req,res,next) => {
         let employeeData = new details_employee(req.body)
+        // let employeeData = new details_employee(req.body)
 
         try{
 
@@ -91,7 +92,7 @@ router
  
         try{
 
-            await details_employee.findOneAndDelete({"employeeId" : req.params.id})
+            await details_employee.findOneAndDelete({"_id" : req.params.id})
              
             res.send("Employee Data has been deleted successfully")
             

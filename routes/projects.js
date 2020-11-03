@@ -11,10 +11,10 @@ router.use(bodyparser.json())
 // Setting up a collection of PROJECT
 let details_project = require("../models/project")
 
-router.use(function (req,res,next){
-    console.log("Project Request handled");
-    next()
-})
+// router.use(function (req,res,next){
+//     console.log("Project Request handled");
+//     next()
+// })
 
 //Managing the routes
 router

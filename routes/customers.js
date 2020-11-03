@@ -11,10 +11,10 @@ router.use(bodyparser.json())
 //Setting up a collection of CUSTOMER
 let details_customer = require("../models/customer")
 
-router.use(function (req,res,next){
-    console.log("Customer Request handled");
-    next()
-})
+// router.use(function (req,res,next){
+//     console.log("Customer Request handled");
+//     next()
+// })
 
 //Managing the routes
 router
@@ -30,7 +30,7 @@ router
         }
         catch(err){
             res.status(400)
-            res.send("Details of Customer have been added")
+            res.send("Details of Customer have not been added")
         }    
     })
     .get( async (req,res,next) => {
