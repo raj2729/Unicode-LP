@@ -35,7 +35,6 @@ All root endpoints have their separate router in `./router` folder
 
 The get request for the user is to check if the user is authenticated or not. All the routesthen i.e to the employees, projects and customers require authentication for  POST to add ,PUT , DELETE and GET a specific employee,project,customer                   
 
-# Testing
 ## User Sign Up
 
 <img src="screenshots/User/usersignup.jpg">
