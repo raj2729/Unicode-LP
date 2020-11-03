@@ -46,13 +46,12 @@ exports.verifyUser = passport.authenticate("jwt" , {
     session : false,
 } )//use token in authentication header and verifies user 
 
-//Verify if admin flag is set for super secure routes
 exports.verifyAdmin = passport.authenticate("jwt" ,(req, res, next) => {
     if(req.user.admin){
         return next();
     }
     else if(!req.user.admin){
-        err = new Error('You are not authorized to perform this operation!');
+        err = new Error('You are not authorized !');
         err.status = 403;
         return next(err);
     }
