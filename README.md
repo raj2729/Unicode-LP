@@ -8,6 +8,8 @@ Tasks for Unicode learning period
 ├── config/                 -> Contains secret key for queries
 ├── models/                 -> Contains database models
 ├── routes/                 -> Files exporting respective routers for endpoints
+├── screenshots/            -> Screenshots of Tests
+├── uploads/                -> Uploads Folder
 ├── app.js                  -> Main File
 └── package.json            -> Npm package.json file
 ```
