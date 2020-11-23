@@ -11,7 +11,7 @@ const router=express.Router()
 router.use(bodyparser.json())
 
 router.route('/')
-    .get( async (req,res,next) => {
+    .get(authenticate.verifyUser ,authenticate.verifyAdmin , async (req,res,next) => {
   
         try{
 
@@ -66,15 +66,14 @@ router.post("/login", passport.authenticate("local") , (req,res) => {
 
 } );
 
-
 router.get("/logout" , (req,res,next) => {
     
     res.redirect("/");
 } )
 
-router.delete("/:username" , async (req, res, next) => {
+router.delete("/:id" ,authenticate.verifyUser , authenticate.verifyAdmin ,async (req, res, next) => {
 	try {
-		await User.deleteOne({username : req.params.username});
+		await User.findOneAndDelete({"_id" : req.params.id})
 		res.statusCode = 200;
 		res.setHeader('Content-Type','application/json');
 		res.send("User data has been deleted")

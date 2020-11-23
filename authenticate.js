@@ -16,9 +16,7 @@ passport.deserializeUser(User.deserializeUser())
 
 exports.getToken = (user)=>{
 
-    return jwt.sign(user , config.secretKey , 
-    { expiresIn : 360000 } );//expires in 3600 seconds( 1 hour )
-
+    return jwt.sign(user , config.secretKey );
 }
 
 let opts = {};
@@ -29,12 +27,12 @@ exports.jwtPassport = passport.use(new JwtStrategy( opts,( jwt_payload ,done) =>
     console.log("JWT payload : " , jwt_payload);
     User.findOne({
         _id : jwt_payload._id ,
-    } ,(err,user) => {
+    } ,(err,User) => {
         if(err){
             return done( err ,false );
         }
-        else if(user) {
-            return done(null , user);
+        else if(User) {
+            return done(null , User);
         }
         else {
             return done(null , false) ;
@@ -46,17 +44,18 @@ exports.verifyUser = passport.authenticate("jwt" , {
     session : false,
 } )//use token in authentication header and verifies user 
 
-exports.verifyAdmin = passport.authenticate("jwt" ,(req, res, next) => {
+//Verify if admin flag is set for secure routes
+exports.verifyAdmin = (req, res, next) => {
+    
     if(req.user.admin){
         return next();
     }
     else if(!req.user.admin){
-        err = new Error('You are not authorized !');
+        err = new Error('You are not authorized to perform this operation!');
         err.status = 403;
         return next(err);
     }
     else{
         return next(err);
     }
-}
-) 
+}; 

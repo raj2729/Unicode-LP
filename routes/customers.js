@@ -72,7 +72,7 @@ router
             res.send("Error while Updating Customer Data");
         }
     })
-    .delete(authenticate.verifyUser , async (req,res,next) => {
+    .delete(authenticate.verifyUser , authenticate.verifyAdmin ,async (req,res,next) => {
  
         try{
 

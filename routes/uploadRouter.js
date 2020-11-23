@@ -8,10 +8,10 @@ const path = require('path');
 
 uploadRouter.use(bodyparser.json())
 
-uploadRouter.use(function (req,res,next){
-    console.log("Upload Request successful");
-    next();
-})
+// uploadRouter.use(function (req,res,next){
+//     console.log("Upload Request successful");
+//     next();
+// })
 
 //To specify the folder to which files will be stored
 let storage = multer.diskStorage({
@@ -68,9 +68,11 @@ uploadRouter.route("/download/:filename")
                 console.log("ERROR");
                 res.send(err)
             }
-        })    
+        }) //To download the file go to the browser and the 
+        //localhost/uploads/download/Raj.pdf
+        //necessary to enter the extension name or else it will show error   
     })
-
+ 
     .post(authenticate.verifyUser , (req,res,next) => {
         res.statusCode = 403;
         res.end("POST operation not allowed on /download");

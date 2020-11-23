@@ -8,8 +8,6 @@ Tasks for Unicode learning period
 ├── config/                 -> Contains secret key for queries
 ├── models/                 -> Contains database models
 ├── routes/                 -> Files exporting respective routers for endpoints
-├── screenshots/            -> Screenshots of Tests
-├── uploads/                -> Uploads Folder
 ├── app.js                  -> Main File
 └── package.json            -> Npm package.json file
 ```
@@ -37,6 +35,7 @@ All root endpoints have their separate router in `./router` folder
 
 The get request for the user is to check if the user is authenticated or not. All the routesthen i.e to the employees, projects and customers require authentication for  POST to add ,PUT , DELETE and GET a specific employee,project,customer                   
 
+# Testing
 ## User Sign Up
 
 <img src="screenshots/User/usersignup.jpg">
@@ -80,19 +79,19 @@ The get request for the user is to check if the user is authenticated or not. Al
 
 <img src="screenshots/employee/empdetails.jpg">
 
-## Add an Project detail
+## Add Project detail
 
 <img src="screenshots/employee/addemp.jpg">
 
-## Get an Project detail by id
+## Get Project detail by id
 
 <img src="screenshots/employee/getempbyid.jpg">
 
-## Update an Project detail by id
+## Update Project detail by id
 
 <img src="screenshots/employee/updateemp.jpg">
 
-## Delete an Project detail by id
+## Delete Project detail by id
 
 <img src="screenshots/employee/deleteemp.jpg">
 
@@ -102,19 +101,19 @@ The get request for the user is to check if the user is authenticated or not. Al
 
 <img src="screenshots/employee/empdetails.jpg">
 
-## Add an Customer detail
+## Add Customer detail
 
 <img src="screenshots/employee/addemp.jpg">
 
-## Get an Customer detail by id
+## Get Customer detail by id
 
 <img src="screenshots/employee/getempbyid.jpg">
 
-## Update an Customer detail by id
+## Update Customer detail by id
 
 <img src="screenshots/employee/updateemp.jpg">
 
-## Delete an Customer detail by id
+## Delete Customer detail by id
 
 <img src="screenshots/employee/deleteemp.jpg">
 

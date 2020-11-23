@@ -18,6 +18,13 @@ let user = {
     password : "password"
 }
 
+let adminUser = {//npm run test "./test/employee.js"(For running only employee)
+    username : "admin",
+    password : "password"//TO  RUN  =>  npm run test
+}
+// 5fa1046f9026b415480dcf18 => ID of admin account
+
+
 //Sample Test Objects
 let employee1 = new details_employee({
     "employeeName": "Raj",
@@ -34,9 +41,9 @@ let employee2 = {
     "employeeProjectId": 88
 }
 
-employee_id1 ="50634e2c381a2805809387ec"
-
-describe('EMPLOYEES', () => {
+employee_id1 ="506362a4734bb215e41c22f5"
+ 
+describe('EMPLOYEES Endpoints for User', () => {
 
 	before((done) => { //Before each test we check for authorization
 
@@ -54,8 +61,9 @@ describe('EMPLOYEES', () => {
  
 //Test the /GET employee route
   
-  describe('/GET employee', () => {
-	  it('it should GET details all the employees', (done) => {
+    describe('/GET employee', () => {
+	    it('it should GET details all the employees', (done) => {
+            
 			chai.request(app)
 		    .get('/employees')
             .set({ Authorization:`Bearer ${bearer_token}`})
@@ -81,6 +89,7 @@ describe('EMPLOYEES', () => {
                 "employeeSalary": 77,
                 "employeeProjectId": 77
             }
+            
 			chai.request(app)
 		    .post('/employees')
             .set({ Authorization:`Bearer ${bearer_token}`})	
@@ -101,6 +110,7 @@ describe('EMPLOYEES', () => {
 
     describe('/GET/:id Employee', () => {
 	    it('it should GET details of employee by the given id', (done) => {
+               
 	  	    chai.request(app)
 		    .get(`/employees/${employee_id1}`)
             .set({ Authorization:`Bearer ${bearer_token}`})
@@ -124,7 +134,7 @@ describe('EMPLOYEES', () => {
     describe('/PUT/:id Employee', () => {
 	    it('it should UPDATE details of employee by the given id', (done) => {
 	  	
-	    chai.request(app)
+        chai.request(app)
 		.put('/employees/' + employee_id1)
         .set({ Authorization:`Bearer ${bearer_token}`})
 		.send(employee2)
@@ -144,21 +154,69 @@ describe('EMPLOYEES', () => {
 	  });
   });
  
-// Test the /DELETE/:id route
+// // Test the /DELETE/:id route
+  
+//     describe('/DELETE/:id Employee', () => {
+// 	    it('it should DELETE details of employee by the given id', (done) => {
+				
+
+//             chai.request(app)
+//             .post('/users/login')
+//             .send(adminUser)
+//             .end((err,res) => {
+//                 if(err) done(err);
+//                 bearer_token = res.body.token;
+//                 // console.log(bearer_token);
+
+//                 // done();
+//             });
+//             chai.request(app)
+            
+// 		    .delete('/employees/' + employee_id1)
+            
+//             .set({ Authorization:`Bearer ${bearer_token}`})
+// 		    .end((err, res) => {
+// 		    	res.should.have.status(200);
+// 			res.body.should.be.a('object');
+// 		    	done();
+// 		    }); 
+// 		});
+//     });
+
+});
+  
+
+describe('EMPLOYEES Delete Endpoint for Admin', () => {
+
+	before((done) => { //Before each test we check for authorization
+
+        chai.request(app)
+        .post('/users/login')
+        .send(adminUser)
+        .end((err,res) => {
+            if(err) done(err);
+            bearer_token = res.body.token;
+            // console.log(bearer_token);
+
+            done();
+        });
+    });
+    // Test the /DELETE/:id route
   
     describe('/DELETE/:id Employee', () => {
 	    it('it should DELETE details of employee by the given id', (done) => {
 				
+
             chai.request(app)
+            
 		    .delete('/employees/' + employee_id1)
+            
             .set({ Authorization:`Bearer ${bearer_token}`})
 		    .end((err, res) => {
 		    	res.should.have.status(200);
 			res.body.should.be.a('object');
 		    	done();
-		    });
+		    }); 
 		});
     });
-
 });
-  

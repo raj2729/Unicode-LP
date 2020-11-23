@@ -20,7 +20,7 @@ let details_employee = require("../models/employee")
 router
     .route("/")
  
-    .post(authenticate.verifyUser ,authenticate.verifyAdmin, async (req,res,next) => {
+    .post(authenticate.verifyUser , async (req,res,next) => {
         let employeeData = new details_employee(req.body)
         // let employeeData = new details_employee(req.body)
 
@@ -79,16 +79,16 @@ router
             // res.setHeader("Content-Type","application/json");
             // res.json(emp);
             res.send("Employee Data has been updated successfully")           
-
+ 
         }
         catch(err ) {
             res.send("Error while Updating Employee Data")
             
         }
     })
+ 
 
-
-    .delete(authenticate.verifyUser , async (req , res ,next ) => {
+    .delete(authenticate.verifyUser , authenticate.verifyAdmin ,async (req , res ,next ) => {
  
         try{
 

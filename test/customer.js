@@ -14,9 +14,15 @@ chai.use(chaiHttp);
 
 //To do authorisation before testing
 let user = {
-    username : "raj",
+    username : "raj",//npm run test "./test/customer.js"(For running only customer)
     password : "password"
 }
+
+let adminUser = {
+    username : "admin",
+    password : "password"//TO  RUN  =>  npm run test
+}
+// 5fa1046f9026b415480dcf18 => ID of admin account
 
 //Sample Test Objects
 
@@ -28,7 +34,7 @@ let customer2 = {
 
 customer_id1 ="50949ae07207290dd44e3bd9"
 
-describe('CUSTOMER', () => {
+describe('CUSTOMER Endpoints for User', () => {
 
 	before((done) => { //Before each test we check for authorization
 
@@ -123,7 +129,23 @@ describe('CUSTOMER', () => {
 		  
 	  });
   });
- 
+});
+
+describe('CUSTOMER Delete Endpoint for Admin', () => {
+
+	before((done) => { //Before each test we check for authorization
+
+        chai.request(app)
+        .post('/users/login')
+        .send(adminUser)
+        .end((err,res) => {
+            if(err) done(err);
+            bearer_token = res.body.token;
+            // console.log(bearer_token);
+
+            done();
+        });
+	}); 
 // Test the /DELETE/:id route
   
     describe('/DELETE/:id Customer', () => {
@@ -140,5 +162,5 @@ describe('CUSTOMER', () => {
 		});
     });
 
-});
+}); 
   

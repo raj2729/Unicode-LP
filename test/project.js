@@ -18,6 +18,12 @@ let user = {
     password : "password"
 }
 
+let adminUser = {//npm run test "./test/project.js"(For running only project)
+    username : "admin",
+    password : "password"//TO  RUN  =>  npm run test
+}
+// 5fa1046f9026b415480dcf18 => ID of admin account
+
 //Sample Test Objects
 
 let project2 = {
@@ -30,7 +36,7 @@ let project2 = {
 
 project_id1 ="50948fafc8ac840d1c838d19"
 
-describe('PROJECTS', () => {
+describe('PROJECTS Endpoints for User', () => {
 
 	before((done) => { //Before each test we check for authorization
 
@@ -128,7 +134,23 @@ describe('PROJECTS', () => {
 		  
 	    });
     });
- 
+});
+
+describe('PROJECTS Delete Endpoint for Admin', () => {
+
+	before((done) => { //Before each test we check for authorization
+
+        chai.request(app)
+        .post('/users/login')
+        .send(adminUser)
+        .end((err,res) => {
+            if(err) done(err);
+            bearer_token = res.body.token;
+            // console.log(bearer_token);
+
+            done();
+        });			
+	});
 // Test the /DELETE/:id route
   
     describe('/DELETE/:id Project', () => {
