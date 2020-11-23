@@ -95,13 +95,11 @@ describe('EMPLOYEES Endpoints for User', () => {
             .set({ Authorization:`Bearer ${bearer_token}`})	
             .send(user1)
 		    .end((err, res) => {
-                if(err) 
-                    done(err);
-                console.log(res.statusCode);
-                
-			  	res.should.have.status(200);
-			  	res.body.should.be.a('object');
-		      done();
+			if(err) 
+			    done(err);
+			res.should.have.status(200);
+			res.body.should.be.a('object');
+			done();
 		    });
 	  });
   });
@@ -117,13 +115,9 @@ describe('EMPLOYEES Endpoints for User', () => {
 		    .end((err, res) => {
                 if(err) 
                     done(err);
-			    res.should.have.status(200);
-			    res.body.should.be.a('object');
-			    // res.body.should.have.property('employeeName');
-			    // res.body.should.have.property('employeeId');
-			    // res.body.should.have.property('employeeContact');
-			    // res.body.should.have.property('employeeSalary');
-		        done();
+		res.should.have.status(200);
+		res.body.should.be.a('object');
+		done();
 		    });
 			
 	    });
@@ -143,49 +137,14 @@ describe('EMPLOYEES Endpoints for User', () => {
                 done(err);
 		    res.should.have.status(200);
 			res.body.should.be.a('object');
-            // res.body.should.have.property('employeeName');
-			// res.body.should.have.property('employeeId');
-			// res.body.should.have.property('employeeContact');
-			// res.body.should.have.property('employeeSalary');
-			// res.body.should.have.property('_id').eql(employee_id1);
 			done();
 		});
 		  
 	  });
   });
- 
-// // Test the /DELETE/:id route
-  
-//     describe('/DELETE/:id Employee', () => {
-// 	    it('it should DELETE details of employee by the given id', (done) => {
-				
-
-//             chai.request(app)
-//             .post('/users/login')
-//             .send(adminUser)
-//             .end((err,res) => {
-//                 if(err) done(err);
-//                 bearer_token = res.body.token;
-//                 // console.log(bearer_token);
-
-//                 // done();
-//             });
-//             chai.request(app)
-            
-// 		    .delete('/employees/' + employee_id1)
-            
-//             .set({ Authorization:`Bearer ${bearer_token}`})
-// 		    .end((err, res) => {
-// 		    	res.should.have.status(200);
-// 			res.body.should.be.a('object');
-// 		    	done();
-// 		    }); 
-// 		});
-//     });
 
 });
   
-
 describe('EMPLOYEES Delete Endpoint for Admin', () => {
 
 	before((done) => { //Before each test we check for authorization
@@ -207,12 +166,12 @@ describe('EMPLOYEES Delete Endpoint for Admin', () => {
 	    it('it should DELETE details of employee by the given id', (done) => {
 				
 
-            chai.request(app)
+            	chai.request(app)
             
-		    .delete('/employees/' + employee_id1)
+		.delete('/employees/' + employee_id1)
             
-            .set({ Authorization:`Bearer ${bearer_token}`})
-		    .end((err, res) => {
+            	.set({ Authorization:`Bearer ${bearer_token}`})
+		.end((err, res) => {
 		    	res.should.have.status(200);
 			res.body.should.be.a('object');
 		    	done();
